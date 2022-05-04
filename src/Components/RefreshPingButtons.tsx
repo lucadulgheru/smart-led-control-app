@@ -1,4 +1,4 @@
-import { Button, Box, Stack } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 

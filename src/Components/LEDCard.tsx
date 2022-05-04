@@ -1,6 +1,6 @@
-import { Card, CardActions, CardContent, Switch, Typography } from "@mui/material";
-import { useState } from "react";
-import { CirclePicker } from 'react-color';
+import { Card, CardContent, Stack, Typography } from "@mui/material";
+import LEDColorPicker from "./LEDColorPicker";
+import LEDSwitches from "./LEDSwitches";
 
 const style = {
     container: {
@@ -8,31 +8,24 @@ const style = {
         width: 400
     },
     content: {
-        padding: 5
+        padding: 2
     }
 }
 
-const LEDCard = ({ledID}:{ledID: number}) => {
-
-    const [checked, setChecked] = useState(true);
-
+const LEDCard = ({ ledID }: { ledID: number }) => {
     return (
         <Card
             elevation={10}
             sx={style.container}>
             <CardContent sx={style.content}>
-                <Typography variant="h5">
-                    LED {ledID}
-                </Typography>
-                <CirclePicker />
+                <Stack spacing={2}>
+                    <Typography variant="h5">
+                        LED {ledID}
+                    </Typography>
+                    <LEDColorPicker />
+                    <LEDSwitches />
+                </Stack>
             </CardContent>
-            <CardActions>
-                <Switch
-                    checked={checked}
-                    onChange={() => {setChecked(!checked);}}
-                    inputProps={{ 'aria-label': 'controlled' }}
-                />
-            </CardActions>
         </Card>
     );
 }
