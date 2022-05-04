@@ -1,35 +1,37 @@
-import { Box, Button, Card, CardActions, CardContent, Typography } from "@mui/material";
+import { Card, CardActions, CardContent, Switch, Typography } from "@mui/material";
+import { useState } from "react";
+import { CirclePicker } from 'react-color';
 
-const bull = (
-    <Box
-        component="span"
-        sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-        •
-    </Box>
-);
+const style = {
+    container: {
+        height: 300,
+        width: 400
+    },
+    content: {
+        padding: 5
+    }
+}
 
-const LEDCard = () => {
+const LEDCard = ({ledID}:{ledID: number}) => {
+
+    const [checked, setChecked] = useState(true);
+
     return (
-        <Card>
-            <CardContent>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Word of the Day
+        <Card
+            elevation={10}
+            sx={style.container}>
+            <CardContent sx={style.content}>
+                <Typography variant="h5">
+                    LED {ledID}
                 </Typography>
-                <Typography variant="h5" component="div">
-                    be{bull}nev{bull}o{bull}lent
-                </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    adjective
-                </Typography>
-                <Typography variant="body2">
-                    well meaning and kindly.
-                    <br />
-                    {'"a benevolent smile"'}
-                </Typography>
+                <CirclePicker />
             </CardContent>
             <CardActions>
-                <Button size="small">Learn More</Button>
+                <Switch
+                    checked={checked}
+                    onChange={() => {setChecked(!checked);}}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                />
             </CardActions>
         </Card>
     );
