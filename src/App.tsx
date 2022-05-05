@@ -1,25 +1,21 @@
 import './App.css';
-import Layout from './Components/Layout';
-import LEDCard from './Components/LEDCard';
-import RefreshPingButtons from './Components/RefreshPingButtons';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './Pages/Home';
+import Reports from './Pages/Reports';
+import Metrics from './Pages/Metrics';
 import ResponsiveAppBar from './Components/ResponsiveAppbar';
 
 function App() {
   return (
     <div className="App">
-      <ResponsiveAppBar/>
-      <RefreshPingButtons/>
-      <Layout>
-        <LEDCard ledID={0}></LEDCard>
-        <LEDCard ledID={1}></LEDCard>
-        <LEDCard ledID={2}></LEDCard>
-        <LEDCard ledID={3}></LEDCard>
-        <LEDCard ledID={4}></LEDCard>
-        <LEDCard ledID={5}></LEDCard>
-        <LEDCard ledID={6}></LEDCard>
-        <LEDCard ledID={7}></LEDCard>
-        <LEDCard ledID={8}></LEDCard>
-      </Layout>
+      <Router>
+      <ResponsiveAppBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/reports" element={<Reports />} />
+          <Route path="/metrics" element={<Metrics />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
