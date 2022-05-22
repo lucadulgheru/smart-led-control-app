@@ -1,4 +1,5 @@
 import { Card, CardContent, Stack, Typography } from "@mui/material";
+import { ReportType } from "../Utils/componentTypes";
 
 const style = {
     card: {
@@ -6,7 +7,7 @@ const style = {
     }
 }
 
-const ReportCard = ({ eventType, userAddress, date }: { eventType: string, userAddress: string, date: string }) => {
+const ReportCard = ({ eventType, userAddress, date }: ReportType) => {
     return (
         <Card
             sx={style.card}
