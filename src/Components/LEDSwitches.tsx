@@ -12,7 +12,7 @@ const style = {
 
 const LEDSwitches = () => {
 
-    const [checked, setChecked] = useState(true);
+    const [checked, setChecked] = useState(false);
 
     function handleSwitchToggle(checkedStatus: boolean){
         setChecked(checkedStatus);
