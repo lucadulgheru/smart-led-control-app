@@ -1,6 +1,7 @@
 import { Stack, Switch, IconButton } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
-import { useState } from "react";
+import { LEDStatus } from '../Utils/dataTypes';
+import { useEffect, useState } from "react";
 
 const style = {
     container: {
@@ -10,9 +11,13 @@ const style = {
     }
 };
 
-const LEDSwitches = () => {
+const LEDSwitches = ({status}: {status: LEDStatus}) => {
 
     const [checked, setChecked] = useState(false);
+
+    useEffect(() => {
+        setChecked(status.toString() === "ON" ? true : false);
+    }, [status]);
 
     function handleSwitchToggle(checkedStatus: boolean){
         setChecked(checkedStatus);

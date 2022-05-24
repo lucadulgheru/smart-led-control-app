@@ -3,6 +3,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { useState } from 'react';
 import RESTClient from '../Services/restClient';
+import { EnumerateResponse, PingResponse } from '../Utils/responseTypes';
 
 const style = {
     container: {
@@ -19,21 +20,31 @@ const RefreshPingButtons = () => {
     const [isSevere, setIsSevere] = useState(false);
     const [message, setMessage] = useState("");
 
-    async function handleRefresh(){
-        console.log(await restClient.test());
+    async function handleRefresh() {
+        try {
+            const response: EnumerateResponse = await restClient.getLEDs();
+            console.log(`Enumerated ${response.led_count} LEDs`);
+            console.log(`LEDS: ${response.leds[0].status}`);
+        } catch (e) {
+            console.log("Could not enumerate LEDs");
+        }
+    }
+
+    async function handlePing() {
+        try {
+            const response: PingResponse = await restClient.pingBoard();
+            setIsSevere(false);
+            setMessage(`ESP32 responded with: ${response.message}`);
+
+        } catch (e) {
+            setIsSevere(true);
+            setMessage("ESP32 board could not be reached");
+        }
+        setOpen(true);
     }
 
     function handleClose() {
         setOpen(false);
-    }
-
-    // TODO ADD AXIOS CALL HERE
-    // IF RESPONSE = 200 -> then show green snack with up and running msg
-    // OTHERWISE -> show red snack with failure msg
-    function handleOpen() {
-        setIsSevere(true);
-        setMessage("ESP32 board is up and running");
-        setOpen(true);
     }
 
     return (
@@ -44,7 +55,7 @@ const RefreshPingButtons = () => {
                 justifyContent="space-between"
             >
                 <Button variant="contained" startIcon={<RefreshIcon />} color="success" onClick={handleRefresh}>Refresh LED List</Button>
-                <Button variant="contained" startIcon={<LightbulbIcon />} color="error" onClick={handleOpen}>Ping ESP32 board</Button>
+                <Button variant="contained" startIcon={<LightbulbIcon />} color="error" onClick={handlePing}>Ping ESP32 board</Button>
 
             </Stack>
             <Box>

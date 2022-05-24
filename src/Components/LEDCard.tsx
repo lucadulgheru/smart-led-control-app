@@ -1,4 +1,5 @@
 import { Card, CardContent, Stack, Typography } from "@mui/material";
+import { LEDResponse } from "../Utils/responseTypes";
 import LEDColorPicker from "./LEDColorPicker";
 import LEDSwitches from "./LEDSwitches";
 
@@ -12,7 +13,7 @@ const style = {
     }
 }
 
-const LEDCard = ({ ledID }: { ledID: number }) => {
+const LEDCard = ({ id, status, color }: LEDResponse) => {
     return (
         <Card
             elevation={10}
@@ -20,10 +21,10 @@ const LEDCard = ({ ledID }: { ledID: number }) => {
             <CardContent sx={style.content}>
                 <Stack spacing={2}>
                     <Typography variant="h5">
-                        LED {ledID}
+                        LED {id}
                     </Typography>
                     <LEDColorPicker />
-                    <LEDSwitches />
+                    <LEDSwitches status={status}/>
                 </Stack>
             </CardContent>
         </Card>

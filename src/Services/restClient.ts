@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
-import { API_GATEWAY_LOCAL } from "../Utils/constants";
+import { ACTION_COLOR, ACTION_OFF, ACTION_ON, API_GATEWAY_LOCAL, ENDPOINT_ENUMERATE, ENDPOINT_LED, ENDPOINT_PING } from "../Utils/constants";
+import { EnumerateResponse, LEDResponse, PingResponse } from "../Utils/responseTypes";
 
 class RESTClient {
     private static instance: RESTClient;
@@ -18,36 +19,33 @@ class RESTClient {
         return RESTClient.instance;
     }
 
-    // TODO replace hardcoded values with constants
-    // TODO replace response types with types
-
     public async test(): Promise<any> {
         const response: any = await (await RESTClient.axiosInstance.get("")).data;
         return response;
     }
 
-    public async pingBoard(): Promise<any> {
-        const response: any = await (await RESTClient.axiosInstance.get("/ping")).data;
+    public async pingBoard(): Promise<PingResponse> {
+        const response: PingResponse = await (await RESTClient.axiosInstance.get(ENDPOINT_PING)).data;
         return response;
     }
 
-    public async getLEDs(): Promise<any> {
-        const response: any = await (await RESTClient.axiosInstance.get("/enumerate")).data;
+    public async getLEDs(): Promise<EnumerateResponse> {
+        const response: EnumerateResponse = await (await RESTClient.axiosInstance.get(ENDPOINT_ENUMERATE)).data;
         return response;
     }
 
-    public async toggleOn(ledId: number): Promise<any> {
-        const response: any = await (await RESTClient.axiosInstance.get(`/led/${ledId}/on`)).data;
+    public async toggleOn(ledId: number): Promise<LEDResponse> {
+        const response: LEDResponse = await (await RESTClient.axiosInstance.get(`${ENDPOINT_LED}/${ledId}/${ACTION_ON}`)).data;
         return response;
     }
 
-    public async toggleOff(ledId: number): Promise<any> {
-        const response: any = await (await RESTClient.axiosInstance.get(`/led/${ledId}/off`)).data;
+    public async toggleOff(ledId: number): Promise<LEDResponse> {
+        const response: LEDResponse = await (await RESTClient.axiosInstance.get(`${ENDPOINT_LED}/${ledId}/${ACTION_OFF}`)).data;
         return response;
     }
 
-    public async changeColor(ledId: number, colorCode: string): Promise<any> {
-        const response: any = await (await RESTClient.axiosInstance.get(`/led/${ledId}/color`)).data;
+    public async changeColor(ledId: number, colorCode: string): Promise<LEDResponse> {
+        const response: LEDResponse = await (await RESTClient.axiosInstance.get(`${ENDPOINT_LED}/${ledId}/${ACTION_COLOR}`)).data;
         return response;
     }
 }

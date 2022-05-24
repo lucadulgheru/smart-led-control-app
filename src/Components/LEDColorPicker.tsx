@@ -20,7 +20,7 @@ const LEDColorPicker = () => {
 
     return(
         <Box sx={style.container}>
-            <CirclePicker 
+            <CirclePicker
                 onChange={(color) => {setColor(color);}}
             />
         </Box>
