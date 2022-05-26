@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
-import { ACTION_COLOR, ACTION_OFF, ACTION_ON, API_GATEWAY_LOCAL, ENDPOINT_ENUMERATE, ENDPOINT_LED, ENDPOINT_PING } from "../Utils/constants";
-import { EnumerateResponse, LEDResponse, PingResponse } from "../Utils/responseTypes";
+import { ACTION_COLOR, ACTION_OFF, ACTION_ON, API_GATEWAY_LOCAL, ENDPOINT_ENUMERATE, ENDPOINT_EVENTS, ENDPOINT_LED, ENDPOINT_PING } from "../Utils/constants";
+import { EnumerateResponse, EventResponse, LEDResponse, PingResponse } from "../Utils/responseTypes";
 
 class RESTClient {
     private static instance: RESTClient;
@@ -46,6 +46,11 @@ class RESTClient {
 
     public async changeColor(ledId: number, colorCode: string): Promise<LEDResponse> {
         const response: LEDResponse = await (await RESTClient.axiosInstance.get(`${ENDPOINT_LED}/${ledId}/${ACTION_COLOR}`)).data;
+        return response;
+    }
+
+    public async getEvents(): Promise<EventResponse> {
+        const response: EventResponse = await (await RESTClient.axiosInstance.get(ENDPOINT_EVENTS)).data;
         return response;
     }
 }
