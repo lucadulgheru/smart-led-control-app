@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { ACTION_COLOR, ACTION_OFF, ACTION_ON, API_GATEWAY_LOCAL, ENDPOINT_ENUMERATE, ENDPOINT_EVENTS, ENDPOINT_LED, ENDPOINT_PING } from "../Utils/constants";
+import { ACTION_COLOR, ACTION_TOGGLE, API_GATEWAY_LOCAL, ENDPOINT_ENUMERATE, ENDPOINT_EVENTS, ENDPOINT_LED, ENDPOINT_PING } from "../Utils/constants";
 import { EnumerateResponse, EventResponse, LEDResponse, PingResponse } from "../Utils/responseTypes";
 
 class RESTClient {
@@ -34,18 +34,17 @@ class RESTClient {
         return response;
     }
 
-    public async toggleOn(ledId: number): Promise<LEDResponse> {
-        const response: LEDResponse = await (await RESTClient.axiosInstance.get(`${ENDPOINT_LED}/${ledId}/${ACTION_ON}`)).data;
-        return response;
-    }
-
-    public async toggleOff(ledId: number): Promise<LEDResponse> {
-        const response: LEDResponse = await (await RESTClient.axiosInstance.get(`${ENDPOINT_LED}/${ledId}/${ACTION_OFF}`)).data;
+    public async toggleLED(ledId: number): Promise<LEDResponse> {
+        const response: LEDResponse = await (await RESTClient.axiosInstance.get(`${ENDPOINT_LED}/${ACTION_TOGGLE}/${ledId}`)).data;
         return response;
     }
 
     public async changeColor(ledId: number, colorCode: string): Promise<LEDResponse> {
-        const response: LEDResponse = await (await RESTClient.axiosInstance.get(`${ENDPOINT_LED}/${ledId}/${ACTION_COLOR}`)).data;
+        const response: LEDResponse = await (await RESTClient.axiosInstance.get(`${ENDPOINT_LED}/${ACTION_COLOR}/${ledId}`, {
+            params: {
+                color_code: colorCode
+            }
+        })).data;
         return response;
     }
 

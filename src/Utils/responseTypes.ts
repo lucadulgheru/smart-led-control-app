@@ -12,7 +12,7 @@ export interface EnumerateResponse {
 export interface LEDResponse {
     id: number,
     status: LEDStatus,
-    color: string
+    color: number[]
 };
 
 export interface EventResponse {

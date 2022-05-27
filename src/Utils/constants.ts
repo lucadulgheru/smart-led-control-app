@@ -3,6 +3,5 @@ export const ENDPOINT_PING: string = "/ping";
 export const ENDPOINT_ENUMERATE: string = "/enumerate";
 export const ENDPOINT_LED: string = "/led";
 export const ENDPOINT_EVENTS: string = "/events";
-export const ACTION_ON: string = "/on";
-export const ACTION_OFF: string = "/off";
+export const ACTION_TOGGLE: string = "/toggle";
 export const ACTION_COLOR: string = "/color";

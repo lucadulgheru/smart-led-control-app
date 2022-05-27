@@ -23,8 +23,8 @@ const LEDCard = ({ id, status, color }: LEDResponse) => {
                     <Typography variant="h5">
                         LED {id}
                     </Typography>
-                    <LEDColorPicker />
-                    <LEDSwitches status={status}/>
+                    <LEDColorPicker id={id}/>
+                    <LEDSwitches status={status} id={id} />
                 </Stack>
             </CardContent>
         </Card>

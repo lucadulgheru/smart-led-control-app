@@ -1,7 +1,7 @@
-import { Stack, Switch, IconButton } from "@mui/material";
-import CheckIcon from '@mui/icons-material/Check';
+import { Stack, Switch } from "@mui/material";
 import { LEDStatus } from '../Utils/dataTypes';
 import { useEffect, useState } from "react";
+import RESTClient from "../Services/restClient";
 
 const style = {
     container: {
@@ -11,18 +11,18 @@ const style = {
     }
 };
 
-const LEDSwitches = ({status}: {status: LEDStatus}) => {
+const LEDSwitches = ({ status, id }: { status: LEDStatus, id: number }) => {
 
     const [checked, setChecked] = useState(false);
+    const restClient: RESTClient = RESTClient.getInstance();
 
     useEffect(() => {
         setChecked(status.toString() === "ON" ? true : false);
     }, [status]);
 
-    function handleSwitchToggle(checkedStatus: boolean){
+    async function handleSwitchToggle(checkedStatus: boolean, ledId: number) {
         setChecked(checkedStatus);
-        // TODO send axios request to ESP32
-        console.log(checkedStatus);
+        await restClient.toggleLED(ledId);
     }
 
     return (
@@ -33,11 +33,8 @@ const LEDSwitches = ({status}: {status: LEDStatus}) => {
         >
             <Switch
                 checked={checked}
-                onChange={() => { handleSwitchToggle(!checked); }}
+                onChange={() => { handleSwitchToggle(!checked, id); }}
             />
-            <IconButton color="success" component="span" >
-                <CheckIcon />
-            </IconButton>
         </Stack>
     );
 }

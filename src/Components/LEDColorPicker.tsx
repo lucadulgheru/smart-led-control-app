@@ -1,5 +1,6 @@
 import Box from "@mui/material/Box";
 import { CirclePicker, ColorResult } from "react-color";
+import RESTClient from "../Services/restClient";
 
 const style = {
     container: {
@@ -9,19 +10,18 @@ const style = {
     }
 };
 
-const LEDColorPicker = () => {
+const LEDColorPicker = ({ id }: { id: number }) => {
 
-    let color: ColorResult | null = null;
+    const restClient: RESTClient = RESTClient.getInstance();
 
-    function setColor(selectedColor: ColorResult){
-        color = selectedColor;
-        console.log(color);
+    async function changeColor(colorCode: string) {
+        await restClient.changeColor(id, colorCode);
     }
 
-    return(
+    return (
         <Box sx={style.container}>
             <CirclePicker
-                onChange={(color) => {setColor(color);}}
+                onChange={(color) => { changeColor(color.hex.replace("#", "")); }}
             />
         </Box>
     );
