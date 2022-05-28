@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import { CirclePicker, ColorResult } from "react-color";
+import { CirclePicker } from "react-color";
 import RESTClient from "../Services/restClient";
 
 const style = {
